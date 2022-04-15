@@ -1,8 +1,8 @@
+import Grid from "@mui/material/Grid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadAllPosts } from "../../redux/actions/postsAC";
 import PostItem from "../PostItem/PostItem";
-import Grid from "@mui/material/Grid";
 
 const PostsList = () => {
   const dispatch = useDispatch();

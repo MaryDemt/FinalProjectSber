@@ -1,20 +1,23 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ShareIcon from '@mui/icons-material/Share';
+import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { deletePostQuery } from '../../redux/actions/postsAC';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,7 +30,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function PostsItem({image, author, title, text}) {
+export default function PostsItem({image, author, title, text, _id}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -36,7 +39,8 @@ export default function PostsItem({image, author, title, text}) {
 
   const description = text.length > 200 ? text.slice(0, 200) + '...' : text
 
-
+  const dispatch = useDispatch()
+  const deleteHandler = () => dispatch(deletePostQuery(_id))// Удалить пост, висит на кнопке со значком мусорки. 
 
   return (
 		<Grid item direction='column' xs={6}>
@@ -74,6 +78,9 @@ export default function PostsItem({image, author, title, text}) {
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
+        </IconButton>
+        <IconButton aria-label="delete" onClick={deleteHandler}>
+          <DeleteForeverIcon />
         </IconButton>
         <ExpandMore
           expand={expanded}

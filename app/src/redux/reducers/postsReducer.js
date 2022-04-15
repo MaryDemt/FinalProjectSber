@@ -1,6 +1,6 @@
 
 
-import {SET_ALL_POSTS, ADD_NEW_POST} from '../types/postsTypes'
+import { ADD_NEW_POST, DELETE_POST, SET_ALL_POSTS } from '../types/postsTypes'
 
 
 const postsReducer = (state = [], action) => {
@@ -14,6 +14,9 @@ const postsReducer = (state = [], action) => {
 				...state,
 				action.payload
 			]
+
+		case DELETE_POST:
+            return state.filter((post) => post.id !== action.payload)
 		
 		default:
 			return state
