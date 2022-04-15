@@ -1,9 +1,9 @@
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
+import { Paper, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { queryNewPost } from "../../redux/actions/postsAC";
-import { Paper, Stack } from "@mui/material";
 
 const PostForm = () => {
   const [title, setTitle] = useState("");
@@ -24,7 +24,10 @@ const PostForm = () => {
     const body = JSON.stringify(preparedPostQuery);
 
     console.log(body);
-
+    setTitle('')
+    setText('')
+    setImage('')
+    setTags('')
     dispatch(queryNewPost(body));
   };
 
