@@ -1,5 +1,5 @@
 import { API_TOKEN } from "../../constants"
-import { ADD_NEW_POST, DELETE_POST, SET_ALL_POSTS } from '../types/postsTypes'
+import { ADD_NEW_POST, DELETE_POST, SET_ALL_POSTS, SET_POST, UPDATE_POST } from '../types/postsTypes'
 
 export const setAllPosts = (allPosts) => ({
 	type: SET_ALL_POSTS,
@@ -60,3 +60,29 @@ export const deletePostQuery = (_id) => async (dispatch) => {
       dispatch(deletePost(_id))
     }
 }
+
+const updatePost = (newPostObject) => ({
+    type: UPDATE_POST, 
+    payload: newPostObject,
+})
+
+export const updatePostQuery = (_id, formData, closeModal) => async (dispatch) => {
+	const response = await fetch(`https://api.react-learning.ru/posts/${_id}`, {
+		method: 'PATCH',
+		headers: {
+		  'Content-Type': 'application/json',
+		  authorization: `Bearer ${API_TOKEN}`,
+		},
+		body: JSON.stringify(formData),
+	  })
+  
+	  if (response.status === 200) {
+		const updatedPostFromServer = await response.json()
+		dispatch(updatePost(updatedPostFromServer))
+		closeModal()
+	  } else {
+		alert('Wrong data')
+	  }
+	}
+
+	  

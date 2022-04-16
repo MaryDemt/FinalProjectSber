@@ -9,6 +9,7 @@ import {
 import Main from './components/Main/Main';
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import PostDetail from './components/PostDetail/PostDetail';
 
 const themeLight = createTheme({
   palette: {
@@ -30,6 +31,7 @@ function App() {
       <Container maxWidth="md" className="container">
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/posts/:_id" element={<PostDetail/>} />
         </Routes>
       </Container>
     </BrowserRouter>

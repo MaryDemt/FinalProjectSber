@@ -1,6 +1,6 @@
 
 
-import { ADD_NEW_POST, DELETE_POST, SET_ALL_POSTS } from '../types/postsTypes'
+import { ADD_NEW_POST, DELETE_POST, SET_ALL_POSTS, SET_POST, UPDATE_POST } from '../types/postsTypes'
 
 
 const postsReducer = (state = [], action) => {
@@ -14,6 +14,18 @@ const postsReducer = (state = [], action) => {
 				...state,
 				action.payload
 			]
+
+		case UPDATE_POST: 
+            return state.length
+              ? state.map((post) => {
+                if(post._id === action.payload._id) {
+                    return action.payload
+                }
+                return post
+            }) : [action.payload]
+
+		case SET_POST:
+			return state.filter((post) => post._id === action.payload)
 
 		case DELETE_POST:
             return state.filter((post) => post.id !== action.payload)

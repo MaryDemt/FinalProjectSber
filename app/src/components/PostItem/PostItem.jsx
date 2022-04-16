@@ -2,7 +2,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ShareIcon from '@mui/icons-material/Share';
+import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -18,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { deletePostQuery } from '../../redux/actions/postsAC';
+import { Button } from '@mui/material';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -41,7 +42,6 @@ export default function PostsItem({image, author, title, text, _id}) {
 
   const dispatch = useDispatch()
   const deleteHandler = () => dispatch(deletePostQuery(_id))// Удалить пост, висит на кнопке со значком мусорки. 
-
   return (
 		<Grid item direction='column' xs={6}>
 
@@ -76,9 +76,9 @@ export default function PostsItem({image, author, title, text, _id}) {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <Button variant="contained" size="small">
+          <Link to={`/posts/${_id}`}>Edit </Link>
+          </Button>
         <IconButton aria-label="delete" onClick={deleteHandler}>
           <DeleteForeverIcon />
         </IconButton>
