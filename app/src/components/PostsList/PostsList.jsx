@@ -7,7 +7,7 @@ import PostItem from "../PostItem/PostItem";
 const PostsList = () => {
   const dispatch = useDispatch();
 
-  const posts = useSelector((store) => store.posts);
+  const posts = useSelector((state) => state.posts);
 
   useEffect(() => {
     dispatch(loadAllPosts());
