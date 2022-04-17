@@ -1,19 +1,75 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from '@mui/icons-material/Search';
+import AppBar from "@mui/material/AppBar";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import InputBase from '@mui/material/InputBase';
+import LinkMUI from '@mui/material/Link';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { alpha, styled } from '@mui/material/styles';
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { setSearchValue } from "../../redux/actions/searchAC";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
+
+const pages = [
+  {
+    title: 'Main',
+    path: '/'
+  },
+  {
+    title: "Create New Post",
+    path: "/postform",
+  },
+];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -34,6 +90,12 @@ const NavBar = () => {
     setAnchorElUser(null);
   };
 
+  const dispatch = useDispatch()
+
+  const searchHandler = (e) => {
+    dispatch(setSearchValue(e.target.value.trim()))
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -42,12 +104,13 @@ const NavBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            LOGO
+            Group №8
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -62,47 +125,62 @@ const NavBar = () => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                <LinkMUI component={Link} to={page.path} >
+                  <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page.title}</Typography>
+                  </MenuItem>
+                </LinkMUI>
               ))}
             </Menu>
           </Box>
+       
+
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            LOGO
+           Group №8
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <LinkMUI component={Link} to={page.path}>
+                <Button
+                  key={page.title}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.title}
+                </Button>
+              </LinkMUI>
             ))}
           </Box>
-
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={searchHandler}
+            />
+          </Search>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -110,17 +188,17 @@ const NavBar = () => {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
@@ -131,7 +209,9 @@ const NavBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+            
           </Box>
+         
         </Toolbar>
       </Container>
     </AppBar>

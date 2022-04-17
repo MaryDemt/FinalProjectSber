@@ -1,19 +1,22 @@
 import Grid from "@mui/material/Grid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDebounce } from "../../hooks/useDebounce";
 import { loadAllPosts } from "../../redux/actions/postsAC";
 import PostItem from "../PostItem/PostItem";
 
 const PostsList = () => {
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.posts);
-
+  const posts = useSelector((store) => store.posts);
+  const search = useSelector((store) => store.search)
+  const debouncedSearch = useDebounce(search, 200)
+  
   useEffect(() => {
-    dispatch(loadAllPosts());
-  }, []);
+    dispatch(loadAllPosts(debouncedSearch)); 
+  }, [debouncedSearch, dispatch])
 
-  console.log({ posts });
+  console.log({ search });
 
   if (!posts.length) return <div>Posts list is empty</div>;
 

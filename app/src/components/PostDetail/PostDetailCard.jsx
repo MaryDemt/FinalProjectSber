@@ -1,22 +1,22 @@
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box, Button, Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
-import { useNavigate } from "react-router-dom";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import { red } from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { usePostsDetailContext } from "./PostDetail";
-import { Button } from "@mui/material";
-import { Grid } from "@mui/material";
-import { Box } from "@mui/material";
 
 
 const PostDetailCard = () => {
   const navigate = useNavigate();
   const { post, openModal } = usePostsDetailContext();
   console.log(post);
+  const date = post.created_at.replace("T", " ").replace("Z", " ")
+  const dateNormal = date.substring(0, date.length - 5)
   return (
     <Box m={2} p={2}>
     <Card>
@@ -30,11 +30,11 @@ const PostDetailCard = () => {
           </IconButton>
         }
         title={post.title}
-        subheader="September 14, 2016"
+        subheader = {dateNormal}
       />
       <CardMedia
         component="img"
-        height="194"
+        height="300"
         image={post.image}
         alt={post.title}
       />
@@ -51,7 +51,7 @@ const PostDetailCard = () => {
         m={0}
         p={2}
       >
-        <Button variant="outlined" size="small" onClick={() => navigate(-1)}>
+        <Button variant="outlined" size="small" onClick={() => navigate(-1)} >
           Go back
         </Button>
         <Button variant="outlined" size="small" onClick={openModal}>

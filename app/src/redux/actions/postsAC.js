@@ -1,14 +1,16 @@
-import { API_TOKEN } from "../../constants"
-import { ADD_NEW_POST, DELETE_POST, SET_ALL_POSTS, SET_POST, UPDATE_POST } from '../types/postsTypes'
+import { API_TOKEN } from "../../constants";
+import { ADD_NEW_POST, DELETE_POST, SET_ALL_POSTS, UPDATE_POST } from '../types/postsTypes';
 
 export const setAllPosts = (allPosts) => ({
 	type: SET_ALL_POSTS,
 	payload: allPosts
 })
 
-export const loadAllPosts = () => async (dispatch) => {
-
-	const response = await fetch('https://api.react-learning.ru/posts', {
+export const loadAllPosts = (searchValue) => async (dispatch) => {
+	const urlForFetch = searchValue 
+	? `https://api.react-learning.ru/posts/search/?query=${searchValue}`
+    : "https://api.react-learning.ru/posts"; 
+	const response = await fetch(urlForFetch, {
 		headers: {
 			authorization: `Bearer ${API_TOKEN}` 
 		}

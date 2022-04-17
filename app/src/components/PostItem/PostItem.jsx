@@ -2,7 +2,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Link } from "react-router-dom";
+import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -17,8 +17,9 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 import { deletePostQuery } from '../../redux/actions/postsAC';
-import { Button } from '@mui/material';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,15 +32,16 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function PostsItem({image, author, title, text, _id}) {
+export default function PostsItem({image, author, title, text, _id, created_at}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  const date = created_at.replace("T", " ").replace("Z", " ")
+  const dateNormal = date.substring(0, date.length - 5)
   const description = text.length > 200 ? text.slice(0, 200) + '...' : text
-
+ 
   const dispatch = useDispatch()
   const deleteHandler = () => dispatch(deletePostQuery(_id))// Удалить пост, висит на кнопке со значком мусорки. 
   return (
@@ -59,7 +61,7 @@ export default function PostsItem({image, author, title, text, _id}) {
           </IconButton>
         }
         title={title}
-        subheader="September 14, 2016"
+        subheader={dateNormal}
       />
       <CardMedia
         component="img"
@@ -76,8 +78,8 @@ export default function PostsItem({image, author, title, text, _id}) {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <Button variant="contained" size="small">
-          <Link to={`/posts/${_id}`}>Edit </Link>
+        <Button variant="outlined" size="small">
+          <Link to={`/posts/${_id}`}>Detail </Link>
           </Button>
         <IconButton aria-label="delete" onClick={deleteHandler}>
           <DeleteForeverIcon />
