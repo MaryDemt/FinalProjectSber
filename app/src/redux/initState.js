@@ -5,7 +5,8 @@ const initState = () => {
 
 
 	return {
-		posts: []
+		posts: [],
+		search: ''
 	}
 }
 

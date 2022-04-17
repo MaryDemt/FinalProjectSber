@@ -10,7 +10,47 @@ const PostForm = () => {
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
   const [tags, setTags] = useState("");
+  
+  const [titleDirty, setTitleDirty] = useState(false)
+  const [titleError, setTitleError] = useState("Строка не может быть пустой")
+  const titleHandler = (e) => {
+    setTitle(e.target.value)
+    if(e.target.value.length < 3) {
+    setTitleError("Минимум 3 символа")
+    if(!e.target.value) {
+      setTitleError("Строка не может быть пустой")
+    }
+    } else {
+      setTitleError("")
+    }
+  }
 
+  const [textDirty, setTextDirty] = useState(false)
+  const [textError, setTextError] = useState("Строка не может быть пустой")
+  const textHandler = (e) => {
+    setText(e.target.value)
+    if(e.target.value.length < 3) {
+    setTextError("Минимум 3 символа")
+    if(!e.target.value) {
+      setTextError("Строка не может быть пустой")
+    }
+    } else {
+      setTextError("")
+    }
+  }
+
+  const blurHandler = (e) => {
+    switch (e.target.name) {
+      case title:
+        setTitleDirty(true)
+        break;
+      case text:
+        setTextDirty(true)
+        break;
+      default:
+        break;
+    }
+  }
   const dispatch = useDispatch();
 
   const submitHandler = () => {
@@ -31,8 +71,7 @@ const PostForm = () => {
     dispatch(queryNewPost(body));
   };
 
-  const isTitleError = false;
-
+  
   return (
     <Stack
       component="div"
@@ -50,32 +89,42 @@ const PostForm = () => {
           autoComplete="off"
         >
           <div>
+            
             <TextField
-              error={isTitleError}
+              error= {titleDirty && titleError}
               id="outlined-basic"
               label="Title"
               variant="outlined"
               value={title}
-              helperText={isTitleError && "Title must have min 3 symbols"}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={titleHandler}
+              onBlur={(e)=> blurHandler(e)}
+              helperText= {(titleDirty && titleError) && "Min. 3 symbols"}
             />
           </div>
           <div>
+          
             <TextField
+              error= {titleDirty && titleError}
               id="filled-basic"
               label="Text"
               variant="outlined"
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={textHandler}
+              onBlur={(e)=> blurHandler(e)}
+              helperText= {(textDirty && textError) && "Min. 3 symbols"}
+               
             />
+            
           </div>
           <div>
             <TextField
+              
               id="standard-basic"
               label="Image"
               variant="outlined"
               value={image}
               onChange={(e) => setImage(e.target.value)}
+              
             />
           </div>
           <div>
