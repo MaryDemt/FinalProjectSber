@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { usePostsDetailContext } from "./PostDetail";
+import Comments from "../Comments/Comments"
 
 
 const PostDetailCard = () => {
@@ -58,6 +59,8 @@ const PostDetailCard = () => {
           Edit
         </Button>
       </Grid>
+      <hr />
+      <Comments />
     </Card>
     </Box>
   );
