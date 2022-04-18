@@ -6,7 +6,8 @@ const initState = () => {
 
 	return {
 		posts: [],
-		search: ''
+		search: '',
+		comments: [],
 	}
 }
 
