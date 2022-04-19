@@ -33,27 +33,29 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function PostsItem({image, author, title, text, _id, created_at}) {
+export default function PostsItem({image, author, title, text, _id, created_at, likes}) {
   const [expanded, setExpanded] = React.useState(false);
-
+  const dispatch = useDispatch()
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   const date = new Date(created_at).toLocaleString()
   const description = text.length > 200 ? text.slice(0, 200) + '...' : text
-  
-  const likesFromRedux = useSelector((state) => state.likes)
-  const isLike = likesFromRedux.includes(/*тут надо вставить _id текущего пользователя*/)
+  const userId = useSelector((store) => store.person._id)
+ 
+  const isLike = likes.includes(userId)
 
   const likeHandler = () => {
-    if (!isLike) {
+    // console.log({userId, likes})
+    // console.log(!likes.includes(userId))
+    if (!likes.includes(userId)) {
       dispatch(addLikeQuery(_id))
     } else {
       dispatch(deleteLikeQuery(_id))
     }
   }
 
-  const dispatch = useDispatch()
+  
   const deleteHandler = () => dispatch(deletePostQuery(_id))// Удалить пост, висит на кнопке со значком мусорки. 
   return (
 		<Grid item direction='column' xs={6}>
@@ -87,8 +89,8 @@ export default function PostsItem({image, author, title, text, _id, created_at})
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites"onClick={likeHandler}>
-           {isLike ? <FavoriteBorderIcon /> : <FavoriteIcon  />}
-          <p>{likesFromRedux.length}</p>
+           {isLike ? <FavoriteIcon /> : <FavoriteBorderIcon  />}
+          <p>{likes.length}</p>
         </IconButton>
         <Button variant="outlined" size="small">
           <Link to={`/posts/${_id}`}>Detail </Link>

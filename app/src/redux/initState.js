@@ -9,6 +9,7 @@ const initState = () => {
 		search: '',
 		comments: [],
 		likes: [],
+		person:{}
 	}
 }
 

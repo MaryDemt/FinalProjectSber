@@ -1,9 +1,10 @@
 import { API_TOKEN } from "../../constants";
-import { ADD_LIKE, DELETE_LIKE } from "../types/likesTypes";
+import { SET_LIKE } from "../types/postsTypes";
 
-export const addLike = (data) => ({
-    type: ADD_LIKE,
-    payload: data,
+
+export const addLike = (_id) => ({
+    type: SET_LIKE,
+    payload: _id,
   })
   
   export const addLikeQuery = (_id) => async (dispatch) => {
@@ -17,15 +18,14 @@ export const addLike = (data) => ({
         },
       },
     )
-    const objectFromServer = await response.json()
-    const likesFromServer = objectFromServer.likes
-    console.log(likesFromServer)
+    const likesFromServer = await response.json()
+    // const likesFromServer = objectFromServer.likes
     dispatch(addLike(likesFromServer))
   }
   
-  const deleteLike = (data) => ({
-    type: DELETE_LIKE,
-    payload: data,
+  const deleteLike = (likesFromServer) => ({
+    type: SET_LIKE,
+    payload: likesFromServer,
   })
   
   export const deleteLikeQuery = (_id) => async (dispatch) => {
@@ -39,8 +39,8 @@ export const addLike = (data) => ({
         },
       },
     )
-    const objectFromServer = await response.json()
-    const likesFromServer = objectFromServer.likes
-    console.log(likesFromServer)
+    const likesFromServer = await response.json()
+    // const likesFromServer = objectFromServer.likes
+    // console.log(likesFromServer)
     dispatch(deleteLike(likesFromServer))
   }

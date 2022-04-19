@@ -5,6 +5,8 @@ import {
   BrowserRouter, Route, Routes
 } from "react-router-dom";
 import './App.css';
+import { RequireAuth } from './components/Auth/RequireAuth/RequireAuth';
+import SignIn from './components/Auth/SignIn/SignIn';
 import Main from './components/Main/Main';
 import NavBar from './components/NavBar/NavBar';
 import PostDetail from './components/PostDetail/PostDetail';
@@ -29,9 +31,19 @@ function App() {
       <NavBar />
       <Container maxWidth="md" className="container">
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/posts/:_id" element={<PostDetail/>} />
-          <Route path="/postform" element={<PostForm />} />
+          <Route path="/" element={
+            <RequireAuth>
+             <Main />
+            </RequireAuth>} />
+          <Route path="/posts/:_id" element={
+            <RequireAuth>
+              <PostDetail/>
+            </RequireAuth>} />
+          <Route path="/postform" element={
+            <RequireAuth>
+              <PostForm/>
+            </RequireAuth>} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </Container>
     </BrowserRouter>

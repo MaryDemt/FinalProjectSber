@@ -16,7 +16,7 @@ const PostsList = () => {
     dispatch(loadAllPosts(debouncedSearch)); 
   }, [debouncedSearch, dispatch])
 
-  console.log({ search });
+
 
   if (!posts.length) return <div>Posts list is empty</div>;
 
