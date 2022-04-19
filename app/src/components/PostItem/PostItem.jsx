@@ -1,6 +1,7 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -16,10 +17,10 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
+import { addLikeQuery, deleteLikeQuery } from '../../redux/actions/likesAC';
 import { deletePostQuery } from '../../redux/actions/postsAC';
-
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,17 +33,29 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function PostsItem({image, author, title, text, _id, created_at}) {
+export default function PostsItem({image, author, title, text, _id, created_at, likes}) {
   const [expanded, setExpanded] = React.useState(false);
-
+  const dispatch = useDispatch()
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const date = created_at.replace("T", " ").replace("Z", " ")
-  const dateNormal = date.substring(0, date.length - 5)
+  const date = new Date(created_at).toLocaleString()
   const description = text.length > 200 ? text.slice(0, 200) + '...' : text
+  const userId = useSelector((store) => store.person._id)
  
-  const dispatch = useDispatch()
+  const isLike = likes.includes(userId)
+
+  const likeHandler = () => {
+    // console.log({userId, likes})
+    // console.log(!likes.includes(userId))
+    if (!likes.includes(userId)) {
+      dispatch(addLikeQuery(_id))
+    } else {
+      dispatch(deleteLikeQuery(_id))
+    }
+  }
+
+  
   const deleteHandler = () => dispatch(deletePostQuery(_id))// Удалить пост, висит на кнопке со значком мусорки. 
   return (
 		<Grid item direction='column' xs={6}>
@@ -61,7 +74,7 @@ export default function PostsItem({image, author, title, text, _id, created_at})
           </IconButton>
         }
         title={title}
-        subheader={dateNormal}
+        subheader={date}
       />
       <CardMedia
         component="img"
@@ -75,8 +88,9 @@ export default function PostsItem({image, author, title, text, _id, created_at})
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton aria-label="add to favorites"onClick={likeHandler}>
+           {isLike ? <FavoriteIcon /> : <FavoriteBorderIcon  />}
+          <p>{likes.length}</p>
         </IconButton>
         <Button variant="outlined" size="small">
           <Link to={`/posts/${_id}`}>Detail </Link>

@@ -8,6 +8,8 @@ const initState = () => {
 		posts: [],
 		search: '',
 		comments: [],
+		likes: [],
+		person:{}
 	}
 }
 

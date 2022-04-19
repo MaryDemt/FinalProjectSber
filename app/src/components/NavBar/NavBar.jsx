@@ -140,8 +140,8 @@ const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <LinkMUI component={Link} to={page.path} >
-                  <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                <LinkMUI key={page.title} component={Link} to={page.path} >
+                  <MenuItem  onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page.title}</Typography>
                   </MenuItem>
                 </LinkMUI>
@@ -160,9 +160,9 @@ const NavBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <LinkMUI component={Link} to={page.path}>
+              <LinkMUI  key={page.title} component={Link} to={page.path}>
                 <Button
-                  key={page.title}
+                 
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >

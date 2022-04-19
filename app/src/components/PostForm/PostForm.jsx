@@ -1,7 +1,7 @@
 import { Paper, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { queryNewPost } from "../../redux/actions/postsAC";
 
@@ -39,6 +39,44 @@ const PostForm = () => {
     }
   }
 
+  const [imageDirty, setImageDirty] = useState(false)
+  const [imageError, setImageError] = useState("Строка не может быть пустой")
+  const imageHandler = (e) => {
+    setImage(e.target.value)
+    if(e.target.value.length < 3) {
+    setImageError("Минимум 3 символа")
+    if(!e.target.value) {
+      setImageError("Строка не может быть пустой")
+    }
+    } else {
+      setImageError("")
+    }
+  }
+
+  const [tagsDirty, setTagsDirty] = useState(false)
+  const [tagsError, setTagsError] = useState("Строка не может быть пустой")
+  const tagsHandler = (e) => {
+    setTags(e.target.value)
+    if(e.target.value.length < 3) {
+    setTagsError("Минимум 3 символа")
+    if(!e.target.value) {
+      setTagsError("Строка не может быть пустой")
+    }
+    } else {
+      setTagsError("")
+    }
+  }
+
+  const [formValid, setFormValid] = useState(false)
+
+  useEffect(()=> {
+    if(titleError || textError || imageError || tagsError) {
+      setFormValid(false)
+    } else {
+      setFormValid(true)
+    }
+  }, [titleError, textError, imageError, tagsError])
+
   const blurHandler = (e) => {
     switch (e.target.name) {
       case title:
@@ -46,6 +84,12 @@ const PostForm = () => {
         break;
       case text:
         setTextDirty(true)
+        break;
+      case image:
+        setImageDirty(true)
+        break;
+      case tags:
+        setTagsDirty(true)
         break;
       default:
         break;
@@ -104,7 +148,7 @@ const PostForm = () => {
           <div>
           
             <TextField
-              error= {titleDirty && titleError}
+              error= {textDirty && textError}
               id="filled-basic"
               label="Text"
               variant="outlined"
@@ -118,26 +162,31 @@ const PostForm = () => {
           </div>
           <div>
             <TextField
-              
+              error= {imageDirty && imageError}
               id="standard-basic"
               label="Image"
               variant="outlined"
               value={image}
-              onChange={(e) => setImage(e.target.value)}
+              onBlur={(e)=> blurHandler(e)}
+              helperText={(imageDirty && imageError) && "Min. 3 symbols"}
+              onChange= {imageHandler}
               
             />
           </div>
           <div>
             <TextField
+              error= {tagsDirty && tagsError}
               id="standard-basic"
               label="Tags"
               variant="outlined"
               value={tags}
-              onChange={(e) => setTags(e.target.value)}
+              onBlur={(e)=> blurHandler(e)}
+              onChange={tagsHandler}
+              helperText={(tagsDirty && tagsError) && "Min. 3 symbols"}
             />
           </div>
 
-          <Button onClick={submitHandler} variant="outlined">
+          <Button onClick={submitHandler} variant="outlined" disabled={!formValid}>
             Create Post
           </Button>
         </Stack>
