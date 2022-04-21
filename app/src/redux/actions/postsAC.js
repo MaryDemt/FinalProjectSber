@@ -1,4 +1,4 @@
-import { API_TOKEN } from "../../constants";
+import { axiosInstance } from '../../config/axios';
 import { ADD_NEW_POST, DELETE_POST, SET_ALL_POSTS, UPDATE_POST } from '../types/postsTypes';
 
 export const setAllPosts = (allPosts) => ({
@@ -8,15 +8,12 @@ export const setAllPosts = (allPosts) => ({
 
 export const loadAllPosts = (searchValue) => async (dispatch) => {
 	const urlForFetch = searchValue 
-	? `https://api.react-learning.ru/posts/search/?query=${searchValue}`
-    : "https://api.react-learning.ru/posts"; 
-	const response = await fetch(urlForFetch, {
-		headers: {
-			authorization: `Bearer ${API_TOKEN}` 
-		}
-	})
+	? `posts/search/?query=${searchValue}`
+    : "posts"; 
+	const response = await axiosInstance.get(urlForFetch)
 
-	const postsFromApi = await response.json()
+	const postsFromApi = response.data
+	console.log(postsFromApi)
 
 	dispatch(setAllPosts(postsFromApi))
 
@@ -30,16 +27,12 @@ export const addNewPost = (allPosts) => ({
 
 export const queryNewPost = (post) => async (dispatch) => {
 
-	const response = await fetch('https://api.react-learning.ru/posts', {
-		method: "POST",
-		headers: {
-			authorization: `Bearer ${API_TOKEN}`,
-			'Content-Type': 'application/json' 
-		},
-		body: post
-	})
+	const response = await axiosInstance.post(
+		'posts',
+		post,
+	)
 
-	const postFromApi = await response.json()
+	const postFromApi = await response.data
 
 	dispatch(addNewPost(postFromApi))
 
@@ -50,13 +43,8 @@ export const deletePost = (_id) => ({
     payload: _id,
 })
 export const deletePostQuery = (_id) => async (dispatch) => {
-    const response = await fetch(`https://api.react-learning.ru/posts/${_id}`, {
-      method: 'DELETE',
-	  headers: {
-		authorization: `Bearer ${API_TOKEN}`,
-	},
-	
-    })
+    const response = await axiosInstance.delete(`posts/${_id}`, 
+	)
 
     if (response.status === 200) {
       dispatch(deletePost(_id))
@@ -69,17 +57,12 @@ const updatePost = (newPostObject) => ({
 })
 
 export const updatePostQuery = (_id, formData, closeModal) => async (dispatch) => {
-	const response = await fetch(`https://api.react-learning.ru/posts/${_id}`, {
-		method: 'PATCH',
-		headers: {
-		  'Content-Type': 'application/json',
-		  authorization: `Bearer ${API_TOKEN}`,
-		},
-		body: JSON.stringify(formData),
-	  })
+	const response = await axiosInstance.patch(`posts/${_id}`,
+	formData
+	)
   
 	  if (response.status === 200) {
-		const updatedPostFromServer = await response.json()
+		const updatedPostFromServer = await response.data
 		dispatch(updatePost(updatedPostFromServer))
 		closeModal()
 	  } else {

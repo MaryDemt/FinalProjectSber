@@ -1,5 +1,7 @@
-import { API_TOKEN } from "../../constants";
+import { axiosInstance } from "../../config/axios";
 import { ADD_COMMENT, DELETE_COMMENT, SET_COMMENTS } from "../types/commentTypes";
+
+
 
 export const setAllComments = (allComments) => ({
 	type: SET_COMMENTS,
@@ -7,13 +9,10 @@ export const setAllComments = (allComments) => ({
 })
 
 export const loadAllComments = (_id) => async (dispatch) => {
-	const response = await fetch(`https://api.react-learning.ru/posts/comments/${_id}`, {
-		headers: {
-			authorization: `Bearer ${API_TOKEN}` 
-		}
-	})
+	const response = await axiosInstance.get(`posts/comments/${_id}`
+	)
 
-	const commentsFromApi = await response.json()
+	const commentsFromApi = await response.data
 
 	dispatch(setAllComments(commentsFromApi))
 }
@@ -25,33 +24,23 @@ export const addNewComment = (allComments) => ({
 
 export const queryNewComment = (comment, _id) => async (dispatch) => {
 
-	const response = await fetch(`https://api.react-learning.ru/posts/comments/${_id}`, {
-		method: "POST",
-		headers: {
-			authorization: `Bearer ${API_TOKEN}`,
-			'Content-Type': 'application/json' 
-		},
-		body: comment
-	})
+	const response = await axiosInstance.post(`posts/comments/${_id}`,
+	comment
+	)
 
-	const commentFromApi = await response.json()
+	const commentFromApi = await response.data
 
 	dispatch(addNewComment(commentFromApi))
 
 }
 
-export const deleteComment = (_id, postId) => ({
+export const deleteComment = (_id) => ({
     type: DELETE_COMMENT,
-    payload: _id, postId
+    payload: _id
 })
-export const deleteCommentQuery = (_id, postId) => async (dispatch) => {
-    const response = await fetch(`https://api.react-learning.ru/posts/comments/${postId}/${_id} `, {
-      method: 'DELETE',
-	  headers: {
-		authorization: `Bearer ${API_TOKEN}`,
-	},
-	
-    })
+export const deleteCommentQuery = (postId, _id) => async (dispatch) => {
+    const response = await axiosInstance.delete(`posts/comments/${postId}/${_id}`
+	)
 
     if (response.status === 200) {
       dispatch(deleteComment(_id))

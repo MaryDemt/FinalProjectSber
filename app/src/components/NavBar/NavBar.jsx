@@ -15,8 +15,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { signOut } from "../../redux/actions/personAC";
 import { setSearchValue } from "../../redux/actions/searchAC";
 
 const Search = styled('div')(({ theme }) => ({
@@ -69,9 +71,11 @@ const pages = [
     path: "/postform",
   },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Logout"];
 
 const NavBar = () => {
+  const navigate = useNavigate()
+  const person = useSelector((store) => store.person)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -84,7 +88,14 @@ const NavBar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    localStorage.clear()
   };
+
+  const signOutHandler = () => {
+    dispatch(signOut(person))
+    localStorage.clear()
+    navigate('/signin')
+  }
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -204,12 +215,12 @@ const NavBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+                  <Button type="button" onClick={signOutHandler}>
+                  Выйти
+                </Button>
+              )
+              )}
             </Menu>
-            
           </Box>
          
         </Toolbar>

@@ -6,10 +6,13 @@ import {
 } from "react-router-dom";
 import './App.css';
 import { RequireAuth } from './components/Auth/RequireAuth/RequireAuth';
+import RequireForAuthPerson from './components/Auth/RequireAuth/RequireForAuthPerson';
 import SignIn from './components/Auth/SignIn/SignIn';
+import SignUp from './components/Auth/SignUp/SignUp';
 import Main from './components/Main/Main';
 import NavBar from './components/NavBar/NavBar';
 import PostDetail from './components/PostDetail/PostDetail';
+import PostsList from './components/PostsList/PostsList';
 import PostForm from './components/PostForm/PostForm';
 
 const themeLight = createTheme({
@@ -31,9 +34,17 @@ function App() {
       <NavBar />
       <Container maxWidth="md" className="container">
         <Routes>
-          <Route path="/" element={
+        <Route
+            path="/"
+            element={(
+              <RequireForAuthPerson>
+                <Main />
+              </RequireForAuthPerson>
+            )}
+            />
+          <Route path="/posts" element={
             <RequireAuth>
-             <Main />
+             <PostsList />
             </RequireAuth>} />
           <Route path="/posts/:_id" element={
             <RequireAuth>
@@ -43,7 +54,20 @@ function App() {
             <RequireAuth>
               <PostForm/>
             </RequireAuth>} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signin" 
+          element={(
+          <RequireForAuthPerson>
+          <SignIn />
+          </RequireForAuthPerson>
+          )} 
+          />
+          <Route path="/signup"
+          element={(
+            <RequireForAuthPerson>
+            <SignUp  />
+            </RequireForAuthPerson>
+           )}  
+          />
         </Routes>
       </Container>
     </BrowserRouter>
