@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useDispatch } from "react-redux";
@@ -22,13 +23,14 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     dispatch(
-      signUpQuery({
-        email: data.get("email"),
-        password: data.get("password"),
-        cb: () => {
-          navigate(from, { replace: true });
-        },
-      })
+        signUpQuery({
+            email: data.get("email"),
+            password: data.get("password"),
+            passwordConfirm: data.get("passwordConfirm"),
+            cb: () => {
+                navigate(from, { replace: true });
+            },
+        })
     );
   };
 
@@ -84,6 +86,19 @@ export default function SignUp() {
               id="password"
               autoComplete="current-password"
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="passwordConfirm"
+              label="Confirm password"
+              type="password"
+              id="passwordConfirm"
+              autoComplete="current-password"
+            />
+            <p>
+                Already have an account? <Link href="/signin">Sign in!</Link>
+            </p>
             <Button
               type="submit"
               fullWidth

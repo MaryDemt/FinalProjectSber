@@ -23,7 +23,7 @@ const Comments = () => {
         text: commentForm,
       };
   
-      const body = preparedPostQuery;
+      const body = JSON.stringify(preparedPostQuery);
           dispatch(queryNewComment(body, postId._id))
     
     setCommentForm('')

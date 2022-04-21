@@ -15,7 +15,7 @@ export default function CommentItem({_id}) {
     const postId = useParams()
     const comments = useSelector((store) => store.comments)
     const currentComment = comments.find((comment) => comment._id === _id)
-  const deleteHandler = () => dispatch(deleteCommentQuery(postId._id, currentComment._id))
+  const deleteHandler = () => dispatch(deleteCommentQuery(currentComment._id, postId._id))
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">

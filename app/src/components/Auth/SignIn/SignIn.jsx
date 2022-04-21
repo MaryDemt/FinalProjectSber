@@ -5,15 +5,14 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { signInQuery } from "../../../redux/actions/personAC";
 
 export default function SignIn() {
-  //localStorage.clear()
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -86,46 +85,20 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
+            <p>
+              Do not have an account? <Link href="/signup">Sign Up!</Link>
+            </p>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 2, mb: 1}}
+              sx={{ mt: 3, mb: 2 }}
             >
               Sign In
             </Button>
-            </Box>
-            <Container
-      maxWidth="sm"
-      sx={{
-        minHeight: "100%",
-        display: "flex",
-        flexFlow: "column",
-        justifyContent: "center",
-        my: 'auto' }}
-        >
-            <Box sx={{
-              display: "flex",
-        justifyContent: "center"}}> 
-        or
           </Box>
-          < Box
-            component="form"
-            noValidate
-            sx={{ mt: 0, px: 1, minWidht: "100%" }} >
-          <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 2, mb: 1 }} >
-          <Link to={'/signup'}>Sign Up </Link>
-          </Button>
-          </Box>
-          </Container>
         </Box>
-          
       </Paper>
-     
     </Container>
   );
 }

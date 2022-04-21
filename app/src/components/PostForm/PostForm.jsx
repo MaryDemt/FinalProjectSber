@@ -105,7 +105,7 @@ const PostForm = () => {
       tags: tags.split(",").map((el) => el.trim()),
     };
 
-    const body = preparedPostQuery
+    const body = JSON.stringify(preparedPostQuery);
 
     console.log(body);
     setTitle('')

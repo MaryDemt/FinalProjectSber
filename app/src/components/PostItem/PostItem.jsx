@@ -58,7 +58,7 @@ export default function PostsItem({image, author, title, text, _id, created_at, 
   
   const deleteHandler = () => dispatch(deletePostQuery(_id))// Удалить пост, висит на кнопке со значком мусорки. 
   return (
-		<Grid item direction='column' xs={6}>
+		<Grid item xs={6}>
 
 		
     <Card>

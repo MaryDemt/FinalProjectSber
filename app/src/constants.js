@@ -1,6 +1,3 @@
-//export const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU4NjAyNzBjZGQ3ZDNmZDUyZjgyZDYiLCJpYXQiOjE2NTAzNjc3MzIsImV4cCI6MTY4MTkwMzczMn0.AlqtYlg157uHvPn-kneeg1YgCBBj1J1-hzFli74xd9U'
+export const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU4NjAyNzBjZGQ3ZDNmZDUyZjgyZDYiLCJpYXQiOjE2NTAzNjc3MzIsImV4cCI6MTY4MTkwMzczMn0.AlqtYlg157uHvPn-kneeg1YgCBBj1J1-hzFli74xd9U'
 
 // export const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU0NTExZjEwNGYzZTgzOTY4MzM4ZjYiLCJpYXQiOjE2NDk2OTI5ODAsImV4cCI6MTY4MTIyODk4MH0.-C_p1Asj8hNc7gPtLmgMVEfq8QDMtxtSwEMlnGavWUc'
-
-const personKey = 'personKey'
-export const API_TOKEN = localStorage.getItem(personKey)

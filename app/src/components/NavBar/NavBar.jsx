@@ -15,11 +15,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { signOut } from "../../redux/actions/personAC";
 import { setSearchValue } from "../../redux/actions/searchAC";
+import { useSelector } from "react-redux";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -71,11 +70,9 @@ const pages = [
     path: "/postform",
   },
 ];
-const settings = ["Logout"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const NavBar = () => {
-  const navigate = useNavigate()
-  const person = useSelector((store) => store.person)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -88,14 +85,7 @@ const NavBar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-    localStorage.clear()
   };
-
-  const signOutHandler = () => {
-    dispatch(signOut(person))
-    localStorage.clear()
-    navigate('/signin')
-  }
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -105,6 +95,11 @@ const NavBar = () => {
 
   const searchHandler = (e) => {
     dispatch(setSearchValue(e.target.value.trim()))
+  }
+
+  const hadleLogOut = () => {
+    localStorage.removeItem('token');
+    location.reload();
   }
 
   return (
@@ -192,6 +187,8 @@ const NavBar = () => {
               onChange={searchHandler}
             />
           </Search>
+          
+          {(useSelector(store => store.person.token) || localStorage['token']) &&
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -214,14 +211,18 @@ const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                  <Button type="button" onClick={signOutHandler}>
-                  Выйти
-                </Button>
-              )
-              )}
+              {/* {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))} */}
+              <MenuItem onClick={hadleLogOut}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
             </Menu>
+            
           </Box>
+          }
          
         </Toolbar>
       </Container>
