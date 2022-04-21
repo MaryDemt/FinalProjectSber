@@ -8,12 +8,10 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
-import { signInQuery } from "../../../redux/actions/personAC";
+import { signUpQuery } from "../../../redux/actions/personAC";
 
-export default function SignIn() {
-  //localStorage.clear()
+export default function SignUp() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -24,7 +22,7 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     dispatch(
-      signInQuery({
+      signUpQuery({
         email: data.get("email"),
         password: data.get("password"),
         cb: () => {
@@ -58,7 +56,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           <Box
             component="form"
@@ -90,42 +88,13 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 2, mb: 1}}
+              sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
-            </Box>
-            <Container
-      maxWidth="sm"
-      sx={{
-        minHeight: "100%",
-        display: "flex",
-        flexFlow: "column",
-        justifyContent: "center",
-        my: 'auto' }}
-        >
-            <Box sx={{
-              display: "flex",
-        justifyContent: "center"}}> 
-        or
           </Box>
-          < Box
-            component="form"
-            noValidate
-            sx={{ mt: 0, px: 1, minWidht: "100%" }} >
-          <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 2, mb: 1 }} >
-          <Link to={'/signup'}>Sign Up </Link>
-          </Button>
-          </Box>
-          </Container>
         </Box>
-          
       </Paper>
-     
     </Container>
   );
 }

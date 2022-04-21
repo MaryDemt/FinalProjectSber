@@ -10,12 +10,17 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { usePostsDetailContext } from "./PostDetail";
 import Comments from "../Comments/Comments"
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 
 const PostDetailCard = () => {
   const navigate = useNavigate();
+  const { idPost } = useParams()
+  const token = useSelector((store) => store.person.token) 
+  const detailPost = useSelector((store) => store.post)
   const { post, openModal } = usePostsDetailContext();
-  console.log(post);
+  console.log(idPost, token, detailPost);
   const date = post.created_at.replace("T", " ").replace("Z", " ")
   const dateNormal = date.substring(0, date.length - 5)
   return (

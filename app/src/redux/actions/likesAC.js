@@ -1,4 +1,4 @@
-import { API_TOKEN } from "../../constants";
+import { axiosInstance } from "../../config/axios";
 import { SET_LIKE } from "../types/postsTypes";
 
 
@@ -8,17 +8,10 @@ export const addLike = (_id) => ({
   })
   
   export const addLikeQuery = (_id) => async (dispatch) => {
-    const response = await fetch(
-      `https://api.react-learning.ru/posts/likes/${_id}`,
-      {
-        method: 'PUT',
-        headers: {
-          authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-      },
+    const response = await axiosInstance.put(
+      `posts/likes/${_id}`,
     )
-    const likesFromServer = await response.json()
+    const likesFromServer = await response.data
     // const likesFromServer = objectFromServer.likes
     dispatch(addLike(likesFromServer))
   }
@@ -29,17 +22,10 @@ export const addLike = (_id) => ({
   })
   
   export const deleteLikeQuery = (_id) => async (dispatch) => {
-    const response = await fetch(
-      `https://api.react-learning.ru/posts/likes/${_id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-      },
+    const response = await axiosInstance.delete(
+      `posts/likes/${_id}`,
     )
-    const likesFromServer = await response.json()
+    const likesFromServer = await response.data
     // const likesFromServer = objectFromServer.likes
     // console.log(likesFromServer)
     dispatch(deleteLike(likesFromServer))
