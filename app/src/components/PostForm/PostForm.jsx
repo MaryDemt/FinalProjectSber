@@ -107,7 +107,7 @@ const PostForm = () => {
 
     const body = preparedPostQuery
 
-    console.log(body);
+    //console.log(body);
     setTitle('')
     setText('')
     setImage('')

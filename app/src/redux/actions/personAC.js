@@ -109,4 +109,5 @@ export const signOut = (person) => ({
         ...person,
         token: '',
       },
-})
+}
+)

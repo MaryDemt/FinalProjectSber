@@ -18,13 +18,13 @@ import PostForm from './components/PostForm/PostForm';
 const themeLight = createTheme({
   palette: {
     primary: {
-      main: '#0052cc',
+      main: '#b3e5fc',
     },
     secondary: {
-      main: '#edf2ff',
+      main: '#5c6bc0',
     },
   },
-});
+  })
 
 function App() {
   return (

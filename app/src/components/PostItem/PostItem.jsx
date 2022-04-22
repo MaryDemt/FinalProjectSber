@@ -6,6 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
+import LinkMUI from '@mui/material/Link'
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
@@ -92,9 +93,13 @@ export default function PostsItem({image, author, title, text, _id, created_at, 
            {isLike ? <FavoriteIcon /> : <FavoriteBorderIcon  />}
           <p>{likes.length}</p>
         </IconButton>
-        <Button variant="outlined" size="small">
-          <Link to={`/posts/${_id}`}>Detail </Link>
+        <LinkMUI component={Link} to={`/posts/${_id}`}><Button type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 1, mb: 1 }} >
+                Edit
           </Button>
+        </LinkMUI>
         <IconButton aria-label="delete" onClick={deleteHandler}>
           <DeleteForeverIcon />
         </IconButton>

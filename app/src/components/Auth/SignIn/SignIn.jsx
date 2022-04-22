@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useDispatch } from "react-redux";
+import LinkMUI from '@mui/material/Link'
 import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { signInQuery } from "../../../redux/actions/personAC";
@@ -42,7 +43,8 @@ export default function SignIn() {
         display: "flex",
         flexFlow: "column",
         justifyContent: "center",
-        my: 'auto'
+        my: 'auto',
+        mt: '10px'
       }}
     >
       <Paper variant="outlined">
@@ -113,13 +115,15 @@ export default function SignIn() {
             component="form"
             noValidate
             sx={{ mt: 0, px: 1, minWidht: "100%" }} >
-          <Button
+          
+          <LinkMUI component={Link} to={'/signup'}><Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 2, mb: 1 }} >
-          <Link to={'/signup'}>Sign Up </Link>
-          </Button>
+                Sign Up 
+                </Button>
+                </LinkMUI>
           </Box>
           </Container>
         </Box>
