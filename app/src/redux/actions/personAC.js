@@ -1,4 +1,4 @@
-import { axiosInstance } from "../../config/axios"
+import { axiosInstance } from "../../config/axios";
 import { SIGN_IN, SIGN_OUT, SIGN_UP } from "../types/personTypes";
 
 const personToken = 'personToken'
@@ -14,6 +14,25 @@ export const signInQuery =
     const response = await axiosInstance.post("signin", {
       email,
       password,
+    }).catch(function (error) {
+      if (error.response) {
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        if (error.response.status === 401) {
+          alert('Email or password is incorrect!');
+        } else if (error.response.status === 404) {
+          alert('User with with email do not exists!');
+        } else if (error.response.status === 400) {
+          alert('Email is incorrect!');
+        } else {
+          alert(error.response.data.message);
+        }
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      return;
     });
 
     const person = response.data;
@@ -44,6 +63,23 @@ export const signInQuery =
         email,
         password,
         name,
+      }).catch(function (error) {
+        if (error.response) {
+          // console.log(error.response.data);
+          // console.log(error.response.status);
+          if (error.response.status === 400) {
+            alert('Email or password is incorrect!');
+          } else if (error.response.status === 409) {
+            alert('User with with email aleready exists!');
+          } else {
+            alert(error.response.data.message);
+          }
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log('Error', error.message);
+        }
+        return;
       });
   
       const person = response.data;
