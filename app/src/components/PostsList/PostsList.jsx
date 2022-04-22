@@ -21,7 +21,7 @@ const PostsList = () => {
   if (!posts.length) return <div>Posts list is empty</div>;
 
   return (
-    <Grid container spacing={2} justifyContent="center">
+    <Grid container spacing={2} justifyContent="center" margin="20px">
       {posts.map((post) => {
         return <PostItem key={post._id} {...post} />;
       })}

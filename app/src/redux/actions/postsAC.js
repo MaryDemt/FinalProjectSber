@@ -48,7 +48,11 @@ export const deletePostQuery = (_id) => async (dispatch) => {
 
     if (response.status === 200) {
       dispatch(deletePost(_id))
-    }
+	  alert("Вы удалили пост:(")
+    } else {
+			alert("Нельзя удалять чужие посты!")
+		  }
+
 }
 
 const updatePost = (newPostObject) => ({
