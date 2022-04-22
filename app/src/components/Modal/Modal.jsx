@@ -60,7 +60,7 @@ const ModalInner = ({ onClose }) => {
 
     const body = preparedPostQuery;
 
-    console.log(body);
+    //console.log(body);
     dispatch(updatePostQuery(postId._id, body, onClose()));
   };
 
@@ -145,7 +145,9 @@ const ModalInner = ({ onClose }) => {
               onChange={(e) => setTags(e.target.value)}
             />
           </div>
-          <Button onClick={submitHandler} variant="outlined">
+          <Button onClick={submitHandler} type="submit"
+              variant="contained"
+              sx={{ mt: 1, mb: 1 }}>
             Update Post
           </Button>
           </Stack>

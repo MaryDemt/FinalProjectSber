@@ -24,9 +24,9 @@ import { setSearchValue } from "../../redux/actions/searchAC";
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.black, 0.15),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.black, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -88,7 +88,6 @@ const NavBar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-    localStorage.clear()
   };
 
   const signOutHandler = () => {
@@ -175,7 +174,7 @@ const NavBar = () => {
                 <Button
                  
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "black", display: "block" }}
                 >
                   {page.title}
                 </Button>
@@ -215,8 +214,12 @@ const NavBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                  <Button type="button" onClick={signOutHandler}>
-                  Выйти
+                  <Button 
+                  type="submit"
+              variant="contained"
+              sx={{ mt: 0, mb: 0 }}
+              onClick={signOutHandler}>
+                  Sign out
                 </Button>
               )
               )}

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { getPostQuery, updatePostQuery } from "../../../redux/actions/postsAC"
+import { updatePostQuery } from "../../../redux/actions/postsAC"
 import { useLayoutEffect } from "react"
 
 const usePostsDetail = ({closeModal, _id}) => {

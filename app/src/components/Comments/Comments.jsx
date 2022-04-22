@@ -48,18 +48,26 @@ const Comments = () => {
       })}
     
     <TextField
-      margin="dense" 
+      m={1} 
       size="small"
       id="standard-basic"
       variant="outlined"
       value={commentForm}
       onChange={(e) => setCommentForm(e.target.value)}
     />
-    <Box sx= {{alignSelf: 'flex-end', justifyContent: 'center' }} >
-  <Button onClick={submitHandler} variant="outlined">
+   <Grid
+        container
+        justifyContent="center"
+        m={0}
+        p={1}
+      >
+        <Button type="submit"
+              variant="contained"
+              sx={{ mt: 0, mb: 0 }}
+              onClick={submitHandler}>
             Create comment
           </Button>
-</Box>
+          </Grid>
           </Grid>
           </Box>
     )

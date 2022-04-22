@@ -9,9 +9,9 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response)
+    //console.log(response)
     if(response.request.responseURL === 'https://api.react-learning.ru/signin'){
-      console.log({axiosInstance})
+      //console.log({axiosInstance})
       axiosInstance.defaults.headers.authorization = `Bearer ${response.data.token}`
   }
   return response

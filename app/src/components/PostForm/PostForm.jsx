@@ -107,7 +107,7 @@ const PostForm = () => {
 
     const body = preparedPostQuery
 
-    console.log(body);
+    //console.log(body);
     setTitle('')
     setText('')
     setImage('')
@@ -121,6 +121,7 @@ const PostForm = () => {
       component="div"
       direction="column"
       alignItems="center"
+      margin="20px"
     >
     
       <Paper elevation={3} sx={{width: 400}}>

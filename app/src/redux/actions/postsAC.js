@@ -13,7 +13,7 @@ export const loadAllPosts = (searchValue) => async (dispatch) => {
 	const response = await axiosInstance.get(urlForFetch)
 
 	const postsFromApi = response.data
-	console.log(postsFromApi)
+	//console.log(postsFromApi)
 
 	dispatch(setAllPosts(postsFromApi))
 
@@ -48,7 +48,11 @@ export const deletePostQuery = (_id) => async (dispatch) => {
 
     if (response.status === 200) {
       dispatch(deletePost(_id))
-    }
+	  alert("Вы удалили пост:(")
+    } else {
+			alert("Нельзя удалять чужие посты!")
+		  }
+
 }
 
 const updatePost = (newPostObject) => ({
