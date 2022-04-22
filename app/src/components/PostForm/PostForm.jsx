@@ -121,6 +121,7 @@ const PostForm = () => {
       component="div"
       direction="column"
       alignItems="center"
+      margin="20px"
     >
     
       <Paper elevation={3} sx={{width: 400}}>

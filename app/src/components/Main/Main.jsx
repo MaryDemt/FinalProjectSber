@@ -1,19 +1,19 @@
-import * as React from 'react';
+import { CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import * as React from 'react';
 
 
 
 const Main = () => {
   return (
-    <Card sx={{ maxWidth: '740px', height: '100%'}}>
+    <Card sx={{ maxWidth: '740px', height: '100%', margin: '20px'}}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="400"
+          height="600"
           image="https://m.mirkorma.ru/upload/medialibrary/54f/54f44f03a5853e26d592d5f893a8cd4c.jpg"
           alt="welcome"
         />
