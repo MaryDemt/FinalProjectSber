@@ -13,7 +13,7 @@ export const loadAllPosts = (searchValue) => async (dispatch) => {
 	const response = await axiosInstance.get(urlForFetch)
 
 	const postsFromApi = response.data
-	console.log(postsFromApi)
+	//console.log(postsFromApi)
 
 	dispatch(setAllPosts(postsFromApi))
 

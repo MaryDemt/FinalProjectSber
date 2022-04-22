@@ -40,7 +40,8 @@ export default function SignUp() {
         display: "flex",
         flexFlow: "column",
         justifyContent: "center",
-        my: 'auto'
+        my: 'auto',
+        mt: '10px'
       }}
     >
       <Paper variant="outlined">

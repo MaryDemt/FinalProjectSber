@@ -10,17 +10,13 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { usePostsDetailContext } from "./PostDetail";
 import Comments from "../Comments/Comments"
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+
 
 
 const PostDetailCard = () => {
   const navigate = useNavigate();
-  const { idPost } = useParams()
-  const token = useSelector((store) => store.person.token) 
-  const detailPost = useSelector((store) => store.post)
   const { post, openModal } = usePostsDetailContext();
-  console.log(idPost, token, detailPost);
+  //console.log(idPost, token, detailPost);
   const date = post.created_at.replace("T", " ").replace("Z", " ")
   const dateNormal = date.substring(0, date.length - 5)
   return (
@@ -45,24 +41,30 @@ const PostDetailCard = () => {
         alt={post.title}
       />
       <Box sx={{
-        margin: 1,
+        mt: 1,
+        ml: 1,
       }}>
       <span>{post.text}</span>
       </Box>
       <Grid
         container
-        direction="row"
         justifyContent="flex-end"
-        alignItems="center"
+        gap
         m={0}
-        p={2}
+        p={1}
       >
-        <Button variant="outlined" size="small" onClick={() => navigate(-1)} >
-          Go back
-        </Button>
-        <Button variant="outlined" size="small" onClick={openModal}>
-          Edit
-        </Button>
+        <Button type="submit"
+              variant="contained"
+              sx={{ mt: 1, mb: 1 }}
+              onClick={() => navigate(-1)} >
+                Go back
+          </Button>
+        <Button type="submit"
+              variant="contained"
+              sx={{ mt: 1, mb: 1 }}
+              onClick={openModal}>
+                Edit
+         </Button>
       </Grid>
       <hr />
       <Comments />
