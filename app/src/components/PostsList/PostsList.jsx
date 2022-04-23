@@ -8,7 +8,7 @@ import PostItem from "../PostItem/PostItem";
 const PostsList = () => {
   const dispatch = useDispatch();
 
-  const posts = useSelector((store) => store.posts);
+  const posts = useSelector((store) => store.posts.slice().reverse());
   const search = useSelector((store) => store.search)
   const debouncedSearch = useDebounce(search, 200)
   

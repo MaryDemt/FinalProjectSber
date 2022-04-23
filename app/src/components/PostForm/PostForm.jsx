@@ -3,9 +3,12 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { queryNewPost } from "../../redux/actions/postsAC";
 
 const PostForm = () => {
+
+  const navigate = useNavigate()
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
@@ -113,6 +116,7 @@ const PostForm = () => {
     setImage('')
     setTags('')
     dispatch(queryNewPost(body));
+    navigate('/posts')
   };
 
   
