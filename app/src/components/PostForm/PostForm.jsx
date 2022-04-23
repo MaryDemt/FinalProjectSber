@@ -107,7 +107,7 @@ const PostForm = () => {
 
     const body = preparedPostQuery
 
-    //console.log(body);
+    console.log(body);
     setTitle('')
     setText('')
     setImage('')
@@ -186,8 +186,7 @@ const PostForm = () => {
               helperText={(tagsDirty && tagsError) && "Min. 3 symbols"}
             />
           </div>
-
-          <Button onClick={submitHandler} variant="outlined" disabled={!formValid}>
+          <Button onClick={submitHandler} variant="contained" disabled={!formValid}>
             Create Post
           </Button>
         </Stack>
