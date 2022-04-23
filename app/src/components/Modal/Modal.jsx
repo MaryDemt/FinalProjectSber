@@ -145,7 +145,7 @@ const ModalInner = ({ onClose }) => {
               onChange={(e) => setTags(e.target.value)}
             />
           </div>
-          <Button onClick={submitHandler} type="submit"
+          <Button onClick={submitHandler}
               variant="contained"
               sx={{ mt: 1, mb: 1 }}>
             Update Post
