@@ -1,32 +1,23 @@
+## Final project in SberUniversity
+
+Our project is a space for sharing photo and video content. 
+It implements the following functionality:
+- post placement, deleting and editing, 
+- the ability moving to the detailed page with the opening of a modal window. 
+- There is also the possibility of search, registration and authorization.
+
+
 ## Installation
 
 Dillinger requires [Node.js](https://nodejs.org/) v10+ to run.
 
-Install the dependencies and devDependencies and start the server.
+How to start our project
 
 ```sh
-cd dillinger
 npm i
-node app
+npm start
 ```
 
-For production environments...
+## How to use
 
-```sh
-npm install --production
-NODE_ENV=production node app
-```
-
-## Plugins
-
-Dillinger is currently extended with the following plugins.
-Instructions on how to use them in your own application are linked below.
-
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md][PlDb] |
-| GitHub | [plugins/github/README.md][PlGh] |
-| Google Drive | [plugins/googledrive/README.md][PlGd] |
-| OneDrive | [plugins/onedrive/README.md][PlOd] |
-| Medium | [plugins/medium/README.md][PlMe] |
-| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
+![alt text]()
