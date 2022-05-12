@@ -11,13 +11,25 @@ It implements the following functionality:
 
 Dillinger requires [Node.js](https://nodejs.org/) v10+ to run.
 
-How to start our project
+How to install our project
 
 ```sh
 npm i
 npm start
 ```
 
-## How to use
+## How to start
 
-![alt text]()
+If you have an account, please, sign in 
+
+![alt text](/SignIn.PNG)
+
+or sign up
+
+![alt text](/signUp.PNG)
+
+## Contributors
+
+- Maria Shevtsova
+- Makschernavsky
+- Marina Sergievskaya
